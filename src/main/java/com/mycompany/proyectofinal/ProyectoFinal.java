@@ -10,22 +10,71 @@ import javax.swing.JOptionPane;
  *
  * @author Steven,Kimberlin, Montserrat,JeanCarlos
  */
-public class ProyectoFinal {
+public class ProyectoFinal { 
 
     public static void main(String[] args) {
         
-        //Registra el Cliente
+        while (true){
+            String opcion = JOptionPane.showInputDialog(
+                    "Menu principal: \n"+
+                    "1. Clientes \n"+
+                    "2. Habitaciones \n"+
+                    "3. Reservas \n"+
+                    "4. Salir \n"
+            );
+            
+            switch(opcion){
+                case "1":
+                    menuClientes();
+                    break;
+                case "2":
+                    menuHabitaciones();
+                    break;
+                case "3":
+                    menuReservas();
+                    break;
+                case "4":
+                    JOptionPane.showMessageDialog(null, "Ha salido del sistema");
+                    System.exit(0);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "La opcion no es correcta");
+            }
+        }       
+    }
+      
+    //Registra el Cliente
+
+    static void menuClientes(){
+
+        Cliente cliente = new Cliente();
+        cliente.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del cliente: "));
+        cliente.setTelefono(JOptionPane.showInputDialog("Ingrese el telefono del cliente: "));
+    }
+    
+    //Registra la Habitacion
+    
+    static void menuHabitaciones(){
+        
+        Habitacion habitacion = new Habitacion();
+        habitacion.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: ")));
+        habitacion.setTipo(JOptionPane.showInputDialog("Ingrese el tipo de habitacion: "+"\n(Sencilla, doble, suite}"));
+        habitacion.setPrecio(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el precio por noche de la habitacion: ")));
+    }
+    
+    //Registra la Reserva
+    
+    static void menuReservas(){
+        
         Cliente cliente = new Cliente();
         cliente.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del cliente: "));
         cliente.setTelefono(JOptionPane.showInputDialog("Ingrese el telefono del cliente: "));
         
-        //Registra la Habitacion
         Habitacion habitacion = new Habitacion();
         habitacion.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: ")));
         habitacion.setTipo(JOptionPane.showInputDialog("Ingrese el tipo de habitacion: "+"\n(Sencilla, doble, suite}"));
         habitacion.setPrecio(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el precio por noche de la habitacion: ")));
         
-        //Registra la Reserva
         Reserva reserva = new Reserva();
         reserva.setCliente(cliente);
         reserva.setHabitacion(habitacion);
