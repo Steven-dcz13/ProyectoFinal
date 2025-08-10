@@ -13,36 +13,55 @@ import javax.swing.JOptionPane;
 public class ProyectoFinal {
 
     public static void main(String[] args) {
-        
-        //Registra el Cliente
         Cliente cliente = new Cliente();
-        cliente.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del cliente: "));
-        cliente.setTelefono(JOptionPane.showInputDialog("Ingrese el telefono del cliente: "));
-        
-        //Registra la Habitacion
         Habitacion habitacion = new Habitacion();
-        habitacion.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: ")));
-        habitacion.setTipo(JOptionPane.showInputDialog("Ingrese el tipo de habitacion: "+"\n(Sencilla, doble, suite}"));
-        habitacion.setPrecio(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el precio por noche de la habitacion: ")));
-        
-        //Registra la Reserva
         Reserva reserva = new Reserva();
-        reserva.setCliente(cliente);
-        reserva.setHabitacion(habitacion);
-        reserva.setNoches(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de noches: ")));
+        SubMenu subMenu = new SubMenu();
         
-        //Calcula el monto total
-        reserva.calcularTotal();
-        
-        // Muestra la factura de la reserva
-        String resumen = "Cliente: " + cliente.getNombre()+
-                         "\nTelefono del cliente: " + cliente.getTelefono()+
-                         "\nNumero de habitacion: " + habitacion.getNumero()+
-                         "\nTipo de habitacion: " + habitacion.getTipo()+
-                         "\nPrecio por noche de la habitacion; " + habitacion.getPrecio()+
-                         "\nCantidad de noches: " + reserva.getNoches()+
-                         "\nTotal a pagar: " + reserva.getTotal()+ " colones";
-        
-        JOptionPane.showMessageDialog(null, resumen);
+        while (true) {
+            String opcion = JOptionPane.showInputDialog(
+                "Menu principal:\n" +
+                "1. Registrar cliente\n" +
+                "2. Registrar habitación\n" +
+                "3. Crear reserva\n" +
+                "4. Mostrar resumen\n" +
+                "5. Salir"
+            );
+
+            if (opcion == null || opcion.equals("5")) {
+                JOptionPane.showMessageDialog(null, "Gracias por usar el sistema.");
+                break;
+            }
+
+            switch (opcion) {
+                case "1":
+                    subMenu.mostrarMenuClientes();
+                    break;
+                case "2":
+                    habitacion.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: ")));
+                    habitacion.setTipo(JOptionPane.showInputDialog("Ingrese el tipo de habitacion: \n(Sencilla, doble, suite)"));
+                    habitacion.setPrecio(Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio por noche de la habitacion: ")));
+                    break;
+                case "3":
+                    reserva.setCliente(cliente);
+                    reserva.setHabitacion(habitacion);
+                    reserva.setNoches(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de noches: ")));
+                    reserva.calcularTotal();
+                    break;
+                case "4":
+                    String resumen = "Cliente: " + cliente.getNombre() +
+                                     "\nTelefono del cliente: " + cliente.getTelefono() +
+                                     "\nNumero de habitacion: " + habitacion.getNumero() +
+                                     "\nTipo de habitacion: " + habitacion.getTipo() +
+                                     "\nPrecio por noche: " + habitacion.getPrecio() +
+                                     "\nCantidad de noches: " + reserva.getNoches() +
+                                     "\nTotal a pagar: " + reserva.getTotal() + " colones";
+                    JOptionPane.showMessageDialog(null, resumen);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opcion invalida.");
+                    break;
+            }
+        }
     }
 }
